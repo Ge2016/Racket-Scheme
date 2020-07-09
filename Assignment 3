@@ -1,0 +1,44 @@
+;Ge Xiong - Assignment 3 - 4.29.2020
+;Part 1
+(define (up-to-first-number list)
+  (cond ((null? list)'()) 
+         ((number? (car list))'())
+         (else(cons(car list)(up-to-first-number(cdr list))))))
+
+;sample runs
+(up-to-first-number '(a b c d 1 2 3)) ;(list 'a 'b 'c 'd)
+(up-to-first-number '(d e f 7)) ;(list 'd 'e 'f)
+(up-to-first-number '(g h i)) ;(list 'g 'h 'i)
+(up-to-first-number '(1 2 3)) ;'()
+
+;Part 2
+(define (find-loc lst atm)
+  (find-loc-h lst 1 atm))
+
+(define find-loc-h(lambda (lst n atm)
+  (if(null? lst) (+ n 1)
+     (if(equal? (car lst) atm) n
+     (find-loc-h (cdr lst) (+ n 1) atm)))))
+
+;sample runs
+(find-loc '(a b c d e f)'e) ;5
+(find-loc '(a b c d e f)'b) ;2
+
+;Part 3
+(define (list-length lst)
+  (if (null? lst)0
+      (+ 1 (list-length (cdr lst)))))
+
+(define (longer-list list1 list2)
+  (if (or (not (list? list1)) (not (list? list2)))#f
+  (cond ((> (list-length list1) (list-length list2)) list1)
+         ((< (list-length list1) (list-length list2)) list2)
+         (else #t))))
+
+;sample runs
+(longer-list '(1 2 3 4) '(a b c d e)) ;(list 'a 'b 'c 'd 'e)
+(longer-list '(d e f) '(4 5 6)) ;#true
+(longer-list '(g h i)3) ;#false
+
+
+  
